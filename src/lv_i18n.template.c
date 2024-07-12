@@ -181,10 +181,10 @@ int lv_i18n_set_locale(const char * l_name)
 }
 
 
-static const char * __lv_i18n_get_text_core(const lv_i18n_phrase_t * trans, const char * msg_id)
+static const char * __lv_i18n_get_text_core(const lv_i18n_phrase_t * trans, uint16_t trans_count, const char * msg_id)
 {
     uint16_t i;
-    for(i = 0; trans[i].msg_id != NULL; i++) {
+    for(i = 0; i < trans_count; i++) {
         if(strcmp(trans[i].msg_id, msg_id) == 0) {
             /*The msg_id has been found. Check the translation*/
             if(trans[i].translation) return trans[i].translation;
@@ -209,7 +209,7 @@ const char * lv_i18n_get_text(const char * msg_id)
 
     // Search in current locale
     if(lang->singulars != NULL) {
-        txt = __lv_i18n_get_text_core(lang->singulars, msg_id);
+        txt = __lv_i18n_get_text_core(lang->singulars, lang->num_singulars, msg_id);
         if (txt != NULL) return txt;
     }
 
@@ -219,7 +219,7 @@ const char * lv_i18n_get_text(const char * msg_id)
 
     // Repeat search for default locale
     if(lang->singulars != NULL) {
-        txt = __lv_i18n_get_text_core(lang->singulars, msg_id);
+        txt = __lv_i18n_get_text_core(lang->singulars, lang->num_singulars, msg_id);
         if (txt != NULL) return txt;
     }
 
@@ -245,7 +245,7 @@ const char * lv_i18n_get_text_plural(const char * msg_id, int32_t num)
         ptype = lang->locale_plural_fn(num);
 
         if(lang->plurals[ptype] != NULL) {
-            txt = __lv_i18n_get_text_core(lang->plurals[ptype], msg_id);
+            txt = __lv_i18n_get_text_core(lang->plurals[ptype], lang->num_plurals[ptype], msg_id);
             if (txt != NULL) return txt;
         }
     }
@@ -259,7 +259,7 @@ const char * lv_i18n_get_text_plural(const char * msg_id, int32_t num)
         ptype = lang->locale_plural_fn(num);
 
         if(lang->plurals[ptype] != NULL) {
-            txt = __lv_i18n_get_text_core(lang->plurals[ptype], msg_id);
+            txt = __lv_i18n_get_text_core(lang->plurals[ptype], lang->num_plurals[ptype], msg_id);
             if (txt != NULL) return txt;
         }
     }
