@@ -6,7 +6,6 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-#include <string.h>
 
 typedef enum {
     LV_I18N_PLURAL_TYPE_ZERO,

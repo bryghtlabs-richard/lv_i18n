@@ -1,4 +1,5 @@
 #include "./lv_i18n.h"
+#include <string.h>
 
 /*SAMPLE_START*/
 
