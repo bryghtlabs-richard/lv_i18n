@@ -181,18 +181,41 @@ int lv_i18n_set_locale(const char * l_name)
     return -1;
 }
 
-
 static const char * __lv_i18n_get_text_core(const lv_i18n_phrase_t * trans, uint16_t trans_count, const char * msg_id)
 {
-    uint16_t i;
-    for(i = 0; i < trans_count; i++) {
-        if(strcmp(trans[i].msg_id, msg_id) == 0) {
-            /*The msg_id has been found. Check the translation*/
-            if(trans[i].translation) return trans[i].translation;
+    #if ('A' == 65 && 'Z' - 'A' == 25 && 'a' == 97 && 'z' - 'a' == 25)
+        //phrase-sets are sorted by UTF8 values, so use binary search on ASCII systems
+        int start = 0;
+        int end = trans_count;
+        for(start = 0; start < end; ) {
+            int count = end - start;
+            int mid_point = start + count/2;
+            int mid_cmp = strcmp(msg_id, trans[mid_point].msg_id);
+            if(mid_cmp == 0){
+                /*The msg_id has been found*/
+                return trans[mid_point].translation;
+            } else if(count == 0){
+                /*There is nowhere else to search*/
+                return NULL;
+            }else if(mid_cmp < 0){
+                end = mid_point;
+            } else if(mid_cmp > 0){
+                start = mid_point + 1;
+            }
         }
-    }
+        return NULL;
+    #else
+        //backward-compatible linear scan
+        uint16_t i;
+        for(i = 0; i < trans_count; i++) {
+            if(strcmp(trans[i].msg_id, msg_id) == 0) {
+                /*The msg_id has been found. Check the translation*/
+                if(trans[i].translation) return trans[i].translation;
+            }
+        }
+        return NULL;
+    #endif
 
-    return NULL;
 }
 
 
