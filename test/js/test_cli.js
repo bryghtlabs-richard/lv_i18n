@@ -6,8 +6,8 @@ const { join }          = require('path');
 const { execFileSync }  = require('child_process');
 
 
-const bad_yaml_path = join(__dirname, 'fixtures/broken.yml');
-const script_path = join(__dirname, '../../lv_i18n.js');
+const bad_yaml_path = join(__dirname, 'fixtures', 'broken.yml');
+const script_path = join(__dirname, '..', '..', 'lv_i18n.js');
 
 
 describe('Script', function () {
