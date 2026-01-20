@@ -2,4 +2,7 @@ node_modules
 coverage
 .nyc_output
 *.log
+*~
+*.bak
+*.tmp
 *.swp
