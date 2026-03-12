@@ -30,8 +30,7 @@
     "debug": "^4.3.4",
     "es6-error": "^4.1.1",
     "glob": "^8.0.3",
-    "js-yaml": "^4.1.0",
-    "shelljs": "^0.8.5"
+    "js-yaml": "^4.1.0"
   },
   "bundledDependencies": [
     "argparse",
@@ -39,13 +38,13 @@
     "debug",
     "es6-error",
     "glob",
-    "js-yaml",
-    "shelljs"
+    "js-yaml"
   ],
   "devDependencies": {
     "eslint": "^8.28.0",
     "mocha": "^10.1.0",
     "nyc": "^15.1.0",
-    "shx": "^0.3.4"
+    "shx": "^0.3.4",
+    "shelljs": "^0.8.5"
   }
 }
