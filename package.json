@@ -9,42 +9,31 @@
   "repository": "lvgl/lv_i18n",
   "license": "MIT",
   "files": [
-    "lv_i18n.js",
-    "lib/",
+    "dist/",
     "src/"
   ],
   "bin": {
-    "lv_i18n": "lv_i18n.js"
+    "lv_i18n": "dist/lv_i18n.js"
   },
   "scripts": {
+    "build": "esbuild lv_i18n.js --bundle --platform=node --outfile=dist/lv_i18n.js",
+    "prepare": "npm run build",
     "lint": "eslint .",
     "test": "npm run lint && nyc mocha --recursive",
     "coverage": "npm run test && nyc report --reporter html",
-    "template_update": "./support/template_update.js",
-    "shrink-deps": "shx rm -rf node_modules/js-yaml/dist node_modules/lodash/fp/",
-    "prepublishOnly": "npm run shrink-deps"
+    "template_update": "./support/template_update.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "argparse": "^2.0.1",
     "cldr-core": "^42.0.0",
     "debug": "^4.3.4",
     "es6-error": "^4.1.1",
-    "glob": "^8.0.3",
-    "js-yaml": "^4.1.0"
-  },
-  "bundledDependencies": [
-    "argparse",
-    "cldr-core",
-    "debug",
-    "es6-error",
-    "glob",
-    "js-yaml"
-  ],
-  "devDependencies": {
+    "esbuild": "^0.25.0",
     "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "js-yaml": "^4.1.0",
     "mocha": "^10.1.0",
     "nyc": "^15.1.0",
-    "shx": "^0.3.4",
     "shelljs": "^0.8.5"
   }
 }
