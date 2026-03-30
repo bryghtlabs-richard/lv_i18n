@@ -25,8 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-    
-      - run: npm i lv_i18n -s
+
+      - run: npm ci
       - run: cd test/c ; make test-deps
       - run: make test
       - run: cd example && make example && ./main
